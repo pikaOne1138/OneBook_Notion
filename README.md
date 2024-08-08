@@ -16,11 +16,11 @@
 </p>
 
 
-中文文档 | [README in English](./README_EN.md)
+中文說明 | [README in English](./README_EN.md)
 
 <hr/>
 
-一个使用 NextJS + Notion API 实现的，部署在 Vercel 上的静态博客系统。为Notion和所有创作者设计。
+一個使用 NextJS + Notion API 实现的，部署在 Vercel 上的静态博客系统。为Notion和所有创作者设计。
 
 
 ## 预览效果
