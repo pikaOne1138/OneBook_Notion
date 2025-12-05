@@ -70,7 +70,7 @@ const BlogPostCard = ({ post, className, tagOptions }) => {
             {/* 標籤 */}
             {post?.tags && post.tags.length > 0 && (
               <div className='flex flex-wrap gap-1 mt-2'>
-                {post.tags.map(tagName => (
+                {post.tags.map(tagName => {
                   const color = tagOptions?.find(t => t.value === tagName)?.color || 'gray'
                   return (
                     <TagItemMini key={tagName} tag={{ name: tagName, color: color }} />
