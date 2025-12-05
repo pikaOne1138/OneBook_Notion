@@ -4,6 +4,7 @@ import SmartLink from '@/components/SmartLink'
 import { useRouter } from 'next/router'
 import NotionIcon from './NotionIcon'
 import LazyImage from '@/components/LazyImage'
+import TagItemMini from './TagItemMini'
 
 /**
  * 博客卡牌
@@ -64,6 +65,16 @@ const BlogPostCard = ({ post, className }) => {
             <p className='description font-normal line-clamp-2'>
               {post.summary ? post.summary : '暫無簡介'}
             </p>
+
+            {/* 標籤 */}
+            {post?.tagItems && post.tagItems.length > 0 && (
+              <div className='flex flex-wrap gap-1 mt-2'>
+                {post.tagItems.map(tag => (
+                  <TagItemMini key={tag.name} tag={tag} />
+                ))}
+              </div>
+            )}
+              
           </div>
         </div>
       </div>
