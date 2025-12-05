@@ -22,6 +22,9 @@ const BlogPostCard = ({ post, className }) => {
     post.pageIcon.indexOf('amazonaws.com') !== -1
       ? post.pageIcon + '&width=88'
       : post.pageIcon
+
+  // 檢查標籤資料
+  console.log('Post:', post.title, 'Tags:', post.tagItems)
   
   return (
     <SmartLink
@@ -32,9 +35,9 @@ const BlogPostCard = ({ post, className }) => {
         key={post.id}
         className={`${className} h-full rounded-2xl p-4 dark:bg-neutral-800 cursor-pointer bg-white hover:bg-white dark:hover:bg-gray-800 ${currentSelected ? 'bg-green-50 text-green-500' : ''}`}>
         
-        {/* 桌面版：封面圖在頂部 */}
+        {/* 多列布局（lg以上，3列+）：封封面圖在頂部 */}
         {post?.pageCoverThumbnail && (
-          <div className="hidden xl:block w-full h-32 mb-4 relative overflow-hidden rounded-lg group">
+          <div className="hidden lg:block w-full h-32 mb-3 relative overflow-hidden rounded-lg group">
             <LazyImage 
               src={post.pageCoverThumbnail} 
               className="w-full h-full object-cover group-hover:scale-105 transition-all duration-500"
@@ -44,8 +47,9 @@ const BlogPostCard = ({ post, className }) => {
         )}
           
         <div className='stack-entry w-full flex space-x-3 select-none dark:text-neutral-200'>
+          {/* 少列布局（lg以下，1-2列）：封面圖在左側 */}
           {post?.pageCoverThumbnail && (
-            <div className="xl:hidden w-20 h-20 relative flex-none overflow-hidden rounded-lg group">
+            <div className="lg:hidden w-20 h-20 relative flex-none overflow-hidden rounded-lg group">          
               <LazyImage 
                 src={post.pageCoverThumbnail} 
                 className="w-full h-full object-cover group-hover:scale-105 transition-all duration-500"
