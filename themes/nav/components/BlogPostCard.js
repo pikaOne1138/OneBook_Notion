@@ -11,11 +11,13 @@ import TagItemMini from './TagItemMini'
  * @param {*} param0
  * @returns
  */
-const BlogPostCard = ({ post, className, tagOptions }) => {
-  // Debug: 檢查 BlogPostCard 收到的 props
-  console.log('[BlogPostCard] tagOptions:', tagOptions)
-  console.log('[BlogPostCard] post.title:', post?.title)
-
+const BlogPostCard = (props) => {
+  // Debug: 檢查完整 props 和解構
+  console.log('[BlogPostCard] ALL props keys:', Object.keys(props))
+  console.log('[BlogPostCard] props.tagOptions:', props.tagOptions)
+  
+  const { post, className, tagOptions } = props
+  console.log('[BlogPostCard] tagOptions after destructure:', tagOptions)
   
   const router = useRouter()
   const currentSelected = router.asPath.split('?')[0] === '/' + post.slug
