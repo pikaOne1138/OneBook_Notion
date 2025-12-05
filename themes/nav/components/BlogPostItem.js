@@ -9,12 +9,7 @@ import BlogPostCard from './BlogPostCard'
  * @constructor
  */
 const BlogPostItem = (props) => {
-  const { group, tagOptions } = props
-
-  // Debug: 檢查 BlogPostItem 是否收到 tagOptions
-  console.log('[BlogPostItem] tagOptions:', tagOptions)
-  console.log('[BlogPostItem] props keys:', Object.keys(props))
-  
+  const { group, tagOptions } = props  
   if (group?.category) {
     return <>
             <div id={group?.category} className='category  text-lg font-normal pt-9 pb-4 first:pt-4 select-none flex justify-between  text-neutral-800 dark:text-neutral-400 p-2' key={group?.category}>
