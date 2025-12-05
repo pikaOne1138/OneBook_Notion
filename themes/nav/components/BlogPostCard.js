@@ -70,13 +70,18 @@ const BlogPostCard = ({ post, className, tagOptions }) => {
             {/* 標籤 */}
             {post?.tags && post.tags.length > 0 && (
               <div className='flex flex-wrap gap-1 mt-2'>
-                {post.tags.map(tagName => {
-                  const color = tagOptions?.find(t => t.name === tagName)?.color || 'gray'
+               {post.tags.map(tagName => {
+                  // 詳細 debug
+                  console.log(`[Debug] tagName: "${tagName}", type: ${typeof tagName}`)
+                  console.log(`[Debug] tagOptions:`, tagOptions)
+                  const found = tagOptions?.find(t => t.name === tagName)
+                  console.log(`[Debug] found:`, found)
+                  const color = found?.color || 'gray'
                   console.log(`[Tag] ${tagName} -> color: ${color}, className: notion-${color}_background`)
                   return (
                     <TagItemMini key={tagName} tag={{ name: tagName, color: color }} />
                   )
-                 })}
+                })}
               </div>
             )}
               
