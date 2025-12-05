@@ -13,7 +13,7 @@ import BlogPostListEmpty from './BlogPostListEmpty'
  * @constructor
  */
 const BlogPostListAll = (props) => {
-  const { customMenu, tagOptions } = props   
+  const { customMenu, tagOptions } = props
   const { filteredNavPages, setFilteredNavPages, allNavPages } = useNavGlobal()
 
   // 对自定义分类格式化，方便后续使用分类名称做索引，检索同步图标信息
@@ -67,6 +67,33 @@ const BlogPostListAll = (props) => {
     return null
   })
 
+  // 按照自定義菜單的順序對分類進行排序
+  const categoryOrder = {}
+  let orderIndex = 0
+
+  // 建立分類順序映射
+  links?.forEach((link) => {
+    const linkTitle = link.title + ''
+    // 去除可能的 # 符號
+    const cleanTitle = linkTitle.replace(/^#\s*/, '')
+    categoryOrder[cleanTitle] = orderIndex++
+
+    // 處理子菜單
+    if (link?.subMenus) {
+      link.subMenus?.forEach((subMenu) => {
+        const subMenuTitle = (subMenu?.title + '').replace(/^#\s*/, '')
+        categoryOrder[subMenuTitle] = orderIndex++
+      })
+    }
+  })
+
+  // 排序分組陣列：按照菜單順序排序
+  groupedArray?.sort((a, b) => {
+    const orderA = categoryOrder[a.category] ?? 999 // 不在菜單中的放最後
+    const orderB = categoryOrder[b.category] ?? 999
+    return orderA - orderB
+  })
+
   // 如果都没有选中默认打开第一个
   if (!selectedSth && groupedArray && groupedArray?.length > 0) {
     groupedArray[0].selected = true
@@ -76,9 +103,9 @@ const BlogPostListAll = (props) => {
     return <BlogPostListEmpty />
   } else {
     return <div id='posts-wrapper' className='stack-list w-full mx-auto justify-center'>
-            {/* 文章列表 */}
-            {groupedArray?.map((group, index) => <BlogPostItem key={index} group={group} filterLinks={filterLinks} tagOptions={tagOptions} onHeightChange={props.onHeightChange} />)}
-        </div>
+      {/* 文章列表 */}
+      {groupedArray?.map((group, index) => <BlogPostItem key={index} group={group} filterLinks={filterLinks} tagOptions={tagOptions} onHeightChange={props.onHeightChange} />)}
+    </div>
   }
 
 }
