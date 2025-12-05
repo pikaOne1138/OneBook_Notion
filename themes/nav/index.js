@@ -229,7 +229,7 @@ const LayoutPostListIndex = props => {
  * @returns
  */
 const LayoutPostList = props => {
-  const { posts } = props
+  const { posts, tagOptions } = props
   // 顶部如果是按照分类或标签查看文章列表，列表顶部嵌入一个横幅
   // 如果是搜索，则列表顶部嵌入 搜索框
   return (
@@ -239,7 +239,7 @@ const LayoutPostList = props => {
           id='posts-wrapper'
           class='card-list grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5'>
           {posts?.map(post => (
-            <BlogPostCard key={post.id} post={post} className='card' />
+            <BlogPostCard key={post.id} post={post} className='card' tagOptions={tagOptions} />
           ))}
         </div>
       </div>
