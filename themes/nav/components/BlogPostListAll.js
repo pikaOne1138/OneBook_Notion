@@ -13,7 +13,11 @@ import BlogPostListEmpty from './BlogPostListEmpty'
  * @constructor
  */
 const BlogPostListAll = (props) => {
-  const { customMenu } = props
+  const { customMenu, tagOptions } = props
+
+  console.log('[BlogPostListAll] tagOptions:', tagOptions)
+  console.log('[BlogPostListAll] props keys:', Object.keys(props))
+  
   const { filteredNavPages, setFilteredNavPages, allNavPages } = useNavGlobal()
 
   // 对自定义分类格式化，方便后续使用分类名称做索引，检索同步图标信息
@@ -77,7 +81,7 @@ const BlogPostListAll = (props) => {
   } else {
     return <div id='posts-wrapper' className='stack-list w-full mx-auto justify-center'>
             {/* 文章列表 */}
-            {groupedArray?.map((group, index) => <BlogPostItem key={index} group={group} filterLinks={filterLinks} onHeightChange={props.onHeightChange}/>)}
+            {groupedArray?.map((group, index) => <BlogPostItem key={index} group={group} filterLinks={filterLinks} tagOptions={tagOptions} onHeightChange={props.onHeightChange} />)}
         </div>
   }
 
