@@ -9,7 +9,7 @@ import BlogPostCard from './BlogPostCard'
  * @constructor
  */
 const BlogPostItem = (props) => {
-  const { group } = props
+  const { group, tagOptions } = props
   if (group?.category) {
     return <>
             <div id={group?.category} className='category  text-lg font-normal pt-9 pb-4 first:pt-4 select-none flex justify-between  text-neutral-800 dark:text-neutral-400 p-2' key={group?.category}>
@@ -28,7 +28,7 @@ const BlogPostItem = (props) => {
             </div>
             <div className='card-list grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5'>
             {group?.items?.map(post => (
-                <BlogPostCard key={post.id} className='card' post={post} />
+                <BlogPostCard key={post.id} className='card' post={post} tagOptions={tagOptions} />
             ))}
             </div>
         </>
