@@ -72,6 +72,7 @@ const BlogPostCard = ({ post, className, tagOptions }) => {
               <div className='flex flex-wrap gap-1 mt-2'>
                 {post.tags.map(tagName => {
                   const color = tagOptions?.find(t => t.name === tagName)?.color || 'gray'
+                  console.log(`[Tag] ${tagName} -> color: ${color}, className: notion-${color}_background`)
                   return (
                     <TagItemMini key={tagName} tag={{ name: tagName, color: color }} />
                   )
