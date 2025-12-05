@@ -19,6 +19,16 @@ const BlogPostCard = (props) => {
   const { post, className, tagOptions } = props
   console.log('[BlogPostCard] tagOptions after destructure:', tagOptions)
 
+  // Debug: 提早檢查 post 的 link 欄位
+  console.log('[BlogPostCard] ========== POST DEBUG ==========')
+  console.log('[BlogPostCard] Post title:', post.title)
+  console.log('[BlogPostCard] Post link value:', post.link)
+  console.log('[BlogPostCard] Post link type:', typeof post.link)
+  console.log('[BlogPostCard] Has link (!!post.link)?:', !!post.link)
+  console.log('[BlogPostCard] All post keys:', Object.keys(post))
+  console.log('[BlogPostCard] ================================')
+
+
   const router = useRouter()
   const currentSelected = router.asPath.split('?')[0] === '/' + post.slug
 
@@ -46,7 +56,12 @@ const BlogPostCard = (props) => {
             href={post.link}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e) => {
+              console.log('[External Link] Clicked! URL:', post.link)
+              e.preventDefault()
+              e.stopPropagation()
+              window.open(post.link, '_blank', 'noopener,noreferrer')
+            }}
             className="absolute top-3 right-3 p-1.5 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors duration-200 z-10 group"
             title="開啟外部連結">
             <svg
