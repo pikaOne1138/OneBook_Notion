@@ -16,12 +16,12 @@ const Style = () => {
         font-size: 13px;
     }
     #top-wrapper img {
-      max-height: 44px;
+      height: 44px;
     }
 
     @media (min-width: 720px) {
         #top-wrapper img {
-            height: 80px;
+            height: 90px;
         }
     }
     
