@@ -184,7 +184,7 @@ const LayoutBase = props => {
           </div>
         </main>
 
-        {/* 移动端悬浮目录按钮 */}
+        {/* 手機端懸浮目錄按鈕 */}
         {showTocButton && !tocVisible && (
           <div className='md:hidden fixed right-0 bottom-52 z-30 bg-white border-l border-t border-b dark:border-neutral-800 rounded'>
             <FloatButtonCatalog {...props} />
@@ -199,16 +199,16 @@ const LayoutBase = props => {
 }
 
 /**
- * 首页
+ * 首頁
  * @param {*} props
- * @returns 此主题首页就是列表
+ * @returns 此主题首頁就是列表
  */
 const LayoutIndex = props => {
   return <LayoutPostListIndex {...props} />
 }
 
 /**
- * 首页列表
+ * 首頁列表
  * @param {*} props
  * @returns
  */
@@ -230,8 +230,8 @@ const LayoutPostListIndex = props => {
  */
 const LayoutPostList = props => {
   const { posts, tagOptions } = props
-  // 顶部如果是按照分类或标签查看文章列表，列表顶部嵌入一个横幅
-  // 如果是搜索，则列表顶部嵌入 搜索框
+  // 如果是按照分類或標籤查看文章列表，列表頂部嵌入一个横幅
+  // 如果是搜索，則列表頂部嵌入 搜索框
   return (
     <>
       <div className='w-full max-w-7xl mx-auto justify-center mt-8'>
@@ -248,7 +248,7 @@ const LayoutPostList = props => {
 }
 
 /**
- * 文章详情
+ * 文章詳情
  * @param {*} props
  * @returns
  */
@@ -265,7 +265,7 @@ const LayoutSlug = props => {
             const article = document.querySelector('#article-wrapper #notion-article')
             if (!article) {
               router.push('/404').then(() => {
-                console.warn('找不到页面', router.asPath)
+                console.warn('找不到頁面', router.asPath)
               })
             }
           }
@@ -276,7 +276,7 @@ const LayoutSlug = props => {
   }, [post])
   return (
     <>
-      {/* 文章锁 */}
+      {/* 文章鎖 */}
       {lock && <ArticleLock validPassword={validPassword} />}
 
       {!lock && (
@@ -298,7 +298,7 @@ const LayoutSlug = props => {
 
               {/* 分享 */}
               {/* <ShareBar post={post} /> */}
-              {/* 文章分类和标签信息 */}
+              {/* 文章分類和標籤資訊 */}
               <div className='flex justify-between'>
                 {CONFIG.POST_DETAIL_CATEGORY && post?.category && (
                   <CategoryItem category={post.category} />
@@ -329,18 +329,54 @@ const LayoutSlug = props => {
 }
 
 /**
- * 没有搜索
- * 全靠页面导航
+ * 沒有搜索
+ * 全靠頁面導航
  * @param {*} props
  * @returns
  */
 const LayoutSearch = props => {
-  return <></>
+  const { posts, tagOptions } = props
+  const { locale } = useGlobal()
+  const router = useRouter()
+  const keyword = router?.query?.s || ''
+  return (
+    <>
+      <div className='w-full max-w-7xl mx-auto justify-center mt-8'>
+        {/* 搜索标题 */}
+        <div className='bg-white dark:bg-gray-700 py-6 px-6 mb-6 rounded-lg'>
+          <div className='dark:text-gray-200 text-lg'>
+            <i className='mr-3 fas fa-search' />
+            {keyword ? `${locale.NAV.SEARCH} : "${keyword}"` : locale.NAV.SEARCH}
+          </div>
+          {posts && posts.length > 0 && (
+            <div className='text-sm text-gray-500 dark:text-gray-400 mt-2'>
+              {locale.COMMON.RESULT_OF_SEARCH} {posts.length} {locale.COMMON.ARTICLES}
+            </div>
+          )}
+        </div>
+        {/* 搜索结果列表 */}
+        {posts && posts.length > 0 ? (
+          <div
+            id='posts-wrapper'
+            className='card-list grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5'>
+            {posts?.map(post => (
+              <BlogPostCard key={post.id} post={post} className='card' tagOptions={tagOptions} />
+            ))}
+          </div>
+        ) : (
+          <div className='text-center py-20 text-gray-500 dark:text-gray-400'>
+            <i className='fas fa-inbox text-4xl mb-4' />
+            <p>{locale.COMMON.NO_RESULTS_FOUND}</p>
+          </div>
+        )}
+      </div>
+    </>
+  )
 }
 
 /**
- * 归档页面基本不会用到
- * 全靠页面导航
+ * 歸檔頁面基本不會用到
+ * 全靠全靠頁面導航
  * @param {*} props
  * @returns
  */
@@ -369,12 +405,12 @@ const LayoutArchive = props => {
 const Layout404 = props => {
   const router = useRouter()
   useEffect(() => {
-    // 延时3秒如果加载失败就返回首页
+    // 如果超過3秒就算載入失敗就返回首頁
     setTimeout(() => {
       const article = isBrowser && document.getElementById('article-wrapper')
       if (!article) {
         router.push('/').then(() => {
-          // console.log('找不到页面', router.asPath)
+          // console.log('找不到頁面', router.asPath)
         })
       }
     }, 3000)
@@ -385,7 +421,7 @@ const Layout404 = props => {
             <div className='dark:text-gray-200'>
                 <h2 className='inline-block border-r-2 border-gray-600 mr-2 px-3 py-2 align-top'><i className='mr-2 fas fa-spinner animate-spin' />404</h2>
                 <div className='inline-block text-left h-32 leading-10 items-center'>
-                    <h2 className='m-0 p-0'>页面无法加载，即将返回首页</h2>
+                    <h2 className='m-0 p-0'>頁面無法載入，即將返回首頁/h2>
                 </div>
             </div>
         </div>
@@ -393,7 +429,7 @@ const Layout404 = props => {
 }
 
 /**
- * 分类列表
+ * 分類列表
  */
 const LayoutCategoryIndex = props => {
   const { categoryOptions } = props
@@ -430,10 +466,40 @@ const LayoutCategoryIndex = props => {
 }
 
 /**
- * 标签列表
+ * 標籤列表
  */
 const LayoutTagIndex = props => {
-  return <></>
+    const { tagOptions } = props
+  const { locale } = useGlobal()
+  return (
+    <>
+      <div className='bg-white dark:bg-gray-700 py-10'>
+        <div className='dark:text-gray-200 mb-5'>
+          <i className='mr-4 fas fa-tag' />
+          {locale.COMMON.TAGS}:
+        </div>
+        <div id='tags-list' className='duration-200 flex flex-wrap'>
+          {tagOptions?.map(tag => {
+            return (
+              <SmartLink
+                key={tag.name}
+                href={`/tag/${tag.name}`}
+                passHref
+                legacyBehavior>
+                <div
+                  className={
+                    'hover:text-black dark:hover:text-white dark:text-gray-300 dark:hover:bg-gray-600 px-5 cursor-pointer py-2 hover:bg-gray-100'
+                  }>
+                  <i className='mr-4 fas fa-tag' />
+                  {tag.name}({tag.count})
+                </div>
+              </SmartLink>
+            )
+          })}
+        </div>
+      </div>
+    </>
+  )
 }
 
 export {
