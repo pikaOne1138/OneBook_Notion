@@ -75,7 +75,7 @@ const BlogPostCard = ({ post, className, tagOptions }) => {
                   return (
                     <TagItemMini key={tagName} tag={{ name: tagName, color: color }} />
                   )
-                ))}
+                 })}
               </div>
             )}
               
