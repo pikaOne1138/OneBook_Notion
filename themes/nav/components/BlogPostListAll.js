@@ -13,11 +13,7 @@ import BlogPostListEmpty from './BlogPostListEmpty'
  * @constructor
  */
 const BlogPostListAll = (props) => {
-  const { customMenu, tagOptions } = props 
-
-  console.log('[BlogPostListAll] tagOptions:', tagOptions)
-  console.log('[BlogPostListAll] props keys:', Object.keys(props))
-  
+  const { customMenu, tagOptions } = props   
   const { filteredNavPages, setFilteredNavPages, allNavPages } = useNavGlobal()
 
   // 对自定义分类格式化，方便后续使用分类名称做索引，检索同步图标信息
