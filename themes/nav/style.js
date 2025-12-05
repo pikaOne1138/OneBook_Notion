@@ -16,8 +16,15 @@ const Style = () => {
         font-size: 13px;
     }
     #top-wrapper img {
-        height: 44px;
+      max-height: 44px;
     }
+
+    @media (min-width: 720px) {
+        #top-wrapper img {
+            height: 80px;
+        }
+    }
+    
     /*#top-nav {
         background-color: rgb(251 251 251 / 70%);
     }*/
