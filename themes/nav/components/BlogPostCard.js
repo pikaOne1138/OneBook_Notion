@@ -29,11 +29,11 @@ const BlogPostCard = ({ post, className }) => {
       passHref>
       <div
         key={post.id}
-        className={`${className} group h-full rounded-2xl p-4 dark:bg-neutral-800 cursor-pointer bg-white hover:bg-white dark:hover:bg-gray-800 ${currentSelected ? 'bg-green-50 text-green-500' : ''} flex flex-row md:flex-col gap-4`}>
+        className={`${className} h-full rounded-2xl p-4 dark:bg-neutral-800 cursor-pointer bg-white hover:bg-white dark:hover:bg-gray-800 ${currentSelected ? 'bg-green-50 text-green-500' : ''}`}>
         
-        {/* 封面圖 */}
+        {/* 桌面版：封面圖在頂部 */}
         {post?.pageCoverThumbnail && (
-          <div className="w-1/3 xl:w-full h-24 xl:h-32 relative flex-none overflow-hidden rounded-lg">
+          <div className="hidden xl:block w-full h-32 mb-4 relative overflow-hidden rounded-lg group">
             <LazyImage 
               src={post.pageCoverThumbnail} 
               className="w-full h-full object-cover group-hover:scale-105 transition-all duration-500"
@@ -43,6 +43,15 @@ const BlogPostCard = ({ post, className }) => {
         )}
           
         <div className='stack-entry w-full flex space-x-3 select-none dark:text-neutral-200'>
+          {post?.pageCoverThumbnail && (
+            <div className="xl:hidden w-20 h-20 relative flex-none overflow-hidden rounded-lg group">
+              <LazyImage 
+                src={post.pageCoverThumbnail} 
+                className="w-full h-full object-cover group-hover:scale-105 transition-all duration-500"
+                alt={post.title}
+              />
+            </div>
+          )}
           {siteConfig('POST_TITLE_ICON') && (
             <NotionIcon
               icon={pageIcon}
