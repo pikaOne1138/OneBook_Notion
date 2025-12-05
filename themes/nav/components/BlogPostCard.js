@@ -14,6 +14,10 @@ import TagItemMini from './TagItemMini'
 const BlogPostCard = ({ post, className, tagOptions }) => {
   const router = useRouter()
   const currentSelected = router.asPath.split('?')[0] === '/' + post.slug
+
+  console.log('[BlogPostCard] tagOptions:', tagOptions)
+  console.log('[BlogPostCard] props keys:', Object.keys(props))
+  
   let pageIcon =
     post.pageIcon !== ''
       ? post.pageIcon
