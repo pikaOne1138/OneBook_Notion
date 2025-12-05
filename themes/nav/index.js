@@ -421,7 +421,7 @@ const Layout404 = props => {
             <div className='dark:text-gray-200'>
                 <h2 className='inline-block border-r-2 border-gray-600 mr-2 px-3 py-2 align-top'><i className='mr-2 fas fa-spinner animate-spin' />404</h2>
                 <div className='inline-block text-left h-32 leading-10 items-center'>
-                    <h2 className='m-0 p-0'>頁面無法載入，即將返回首頁/h2>
+                    <h2 className='m-0 p-0'>頁面無法載入，即將返回首頁</h2>
                 </div>
             </div>
         </div>
