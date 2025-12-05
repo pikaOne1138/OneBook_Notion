@@ -22,13 +22,6 @@ const BlogPostCard = ({ post, className }) => {
     post.pageIcon.indexOf('amazonaws.com') !== -1
       ? post.pageIcon + '&width=88'
       : post.pageIcon
-
-  // 檢查標籤資料
-  // 調試：檢查標籤數據
-  console.log('Post:', post.title)
-  console.log('Post keys:', Object.keys(post))
-  console.log('Tags (tagItems):', post.tagItems)
-  console.log('Tags (tags):', post.tags)
   
   return (
     <SmartLink
@@ -75,10 +68,10 @@ const BlogPostCard = ({ post, className }) => {
             </p>
 
             {/* 標籤 */}
-            {post?.tagItems && post.tagItems.length > 0 && (
+            {post?.tags && post.tags.length > 0 && (
               <div className='flex flex-wrap gap-1 mt-2'>
-                {post.tags.map(tag => (
-                  <TagItemMini key={tag.name} tag={tag} />
+                {post.tags.map(tagName => (
+                  <TagItemMini key={tagName} tag={{ name: tagName }} />
                 ))}
               </div>
             )}
