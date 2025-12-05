@@ -33,7 +33,7 @@ const BlogPostCard = ({ post, className }) => {
         
         {/* 封面圖 */}
         {post?.pageCoverThumbnail && (
-          <div className="w-1/3 md:w-full h-24 md:h-32 relative flex-none overflow-hidden rounded-lg">
+          <div className="w-1/3 xl:w-full h-24 xl:h-32 relative flex-none overflow-hidden rounded-lg">
             <LazyImage 
               src={post.pageCoverThumbnail} 
               className="w-full h-full object-cover group-hover:scale-105 transition-all duration-500"
@@ -41,6 +41,7 @@ const BlogPostCard = ({ post, className }) => {
             />
           </div>
         )}
+          
         <div className='stack-entry w-full flex space-x-3 select-none dark:text-neutral-200'>
           {siteConfig('POST_TITLE_ICON') && (
             <NotionIcon
