@@ -12,23 +12,7 @@ import TagItemMini from './TagItemMini'
  * @returns
  */
 const BlogPostCard = (props) => {
-  // Debug: 檢查完整 props 和解構
-  console.log('[BlogPostCard] ALL props keys:', Object.keys(props))
-  console.log('[BlogPostCard] props.tagOptions:', props.tagOptions)
-
   const { post, className, tagOptions } = props
-  console.log('[BlogPostCard] tagOptions after destructure:', tagOptions)
-
-  // Debug: 提早檢查 post 的 link 欄位
-  console.log('[BlogPostCard] ========== POST DEBUG ==========')
-  console.log('[BlogPostCard] Post title:', post.title)
-  console.log('[BlogPostCard] Post link value:', post.link)
-  console.log('[BlogPostCard] Post link type:', typeof post.link)
-  console.log('[BlogPostCard] Has link (!!post.link)?:', !!post.link)
-  console.log('[BlogPostCard] All post keys:', Object.keys(post))
-  console.log('[BlogPostCard] ================================')
-
-
   const router = useRouter()
   const currentSelected = router.asPath.split('?')[0] === '/' + post.slug
 
@@ -51,16 +35,17 @@ const BlogPostCard = (props) => {
         className={`${className} h-full rounded-2xl p-4 dark:bg-neutral-800 cursor-pointer bg-white hover:bg-white dark:hover:bg-gray-800 ${currentSelected ? 'bg-green-50 text-green-500' : ''} relative`}>
 
         {/* 外部連結圖示 */}
-        {post?.link && (
+
+        {post?.ext_link && (
           <a
-            href={post.link}
+            href={post.ext_link}
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => {
-              console.log('[External Link] Clicked! URL:', post.link)
+              console.log('[External Link] Clicked! URL:', post.ext_link)
               e.preventDefault()
               e.stopPropagation()
-              window.open(post.link, '_blank', 'noopener,noreferrer')
+              window.open(post.ext_link, '_blank', 'noopener,noreferrer')
             }}
             className="absolute top-3 right-3 p-1.5 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors duration-200 z-10 group"
             title="開啟外部連結">
@@ -113,13 +98,8 @@ const BlogPostCard = (props) => {
             {post?.tags && post.tags.length > 0 && (
               <div className='flex flex-wrap gap-1 mt-2'>
                 {post.tags.map(tagName => {
-                  // 詳細 debug
-                  console.log(`[Debug] tagName: "${tagName}", type: ${typeof tagName}`)
-                  console.log(`[Debug] tagOptions:`, tagOptions)
                   const found = tagOptions?.find(t => t.name === tagName)
-                  console.log(`[Debug] found:`, found)
                   const color = found?.color || 'gray'
-                  console.log(`[Tag] ${tagName} -> color: ${color}, className: notion-${color}_background`)
                   return (
                     <TagItemMini key={tagName} tag={{ name: tagName, color: color }} />
                   )
@@ -129,8 +109,8 @@ const BlogPostCard = (props) => {
 
           </div>
         </div>
-      </div>
-    </SmartLink>
+      </div >
+    </SmartLink >
   )
 }
 

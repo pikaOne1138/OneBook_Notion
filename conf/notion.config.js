@@ -32,7 +32,7 @@ module.exports = {
     tags: process.env.NEXT_PUBLIC_NOTION_PROPERTY_TAGS || 'tags',
     icon: process.env.NEXT_PUBLIC_NOTION_PROPERTY_ICON || 'icon',
     ext: process.env.NEXT_PUBLIC_NOTION_PROPERTY_EXT || 'ext', // 擴展，存放json-string，用於複雜業務
-    link: process.env.NEXT_PUBLIC_NOTION_PROPERTY_LINK || 'link' // 自定義外部連結
+    ext_link: process.env.NEXT_PUBLIC_NOTION_PROPERTY_LINK || 'link' // 自定義外部連結
   },
   NOTION_ACTIVE_USER: process.env.NOTION_ACTIVE_USER || '',
   NOTION_TOKEN_V2: process.env.NOTION_TOKEN_V2 || '' // Useful if you prefer not to make your database public
