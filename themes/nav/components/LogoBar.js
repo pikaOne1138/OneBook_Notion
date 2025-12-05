@@ -23,7 +23,9 @@ export default function LogoBar(props) {
                 <SmartLink href='/' className='md:w-48 grid justify-items-center text-md md:text-xl dark:text-gray-200'>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={iconUrl}
-                        height='44px' alt={siteConfig('AUTHOR') + ' - ' + siteConfig('NEXT_PUBLIC_BIO')} className='md:block transition-all hover:scale-110 duration-150' placeholderSrc='' />
+                        alt={siteConfig('AUTHOR') + ' - ' + siteConfig('NEXT_PUBLIC_BIO')} 
+                        className='md:block transition-all hover:scale-110 duration-150 max-h-20 w-auto' 
+                        placeholderSrc='' />
                     {siteConfig('NAV_SHOW_TITLE_TEXT', null, CONFIG) && siteConfig('TITLE')}
                 </SmartLink>
         </div>
