@@ -11,7 +11,7 @@ import TagItemMini from './TagItemMini'
  * @param {*} param0
  * @returns
  */
-const BlogPostCard = ({ post, className }) => {
+const BlogPostCard = ({ post, className, tagOptions }) => {
   const router = useRouter()
   const currentSelected = router.asPath.split('?')[0] === '/' + post.slug
   let pageIcon =
@@ -71,7 +71,10 @@ const BlogPostCard = ({ post, className }) => {
             {post?.tags && post.tags.length > 0 && (
               <div className='flex flex-wrap gap-1 mt-2'>
                 {post.tags.map(tagName => (
-                  <TagItemMini key={tagName} tag={{ name: tagName }} />
+                  const color = tagOptions?.find(t => t.value === tagName)?.color || 'gray'
+                  return (
+                    <TagItemMini key={tagName} tag={{ name: tagName, color: color }} />
+                  )
                 ))}
               </div>
             )}
