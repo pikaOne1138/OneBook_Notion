@@ -67,29 +67,19 @@ const BlogPostListAll = (props) => {
     return null
   })
 
-  // 按照自定義菜單的順序對分類進行排序
+  // 按照 categoryOptions 的順序對分類進行排序
   const categoryOrder = {}
   let orderIndex = 0
 
-  // 建立分類順序映射
-  links?.forEach((link) => {
-    const linkTitle = link.title + ''
-    // 去除可能的 # 符號
-    const cleanTitle = linkTitle.replace(/^#\s*/, '')
-    categoryOrder[cleanTitle] = orderIndex++
-
-    // 處理子菜單
-    if (link?.subMenus) {
-      link.subMenus?.forEach((subMenu) => {
-        const subMenuTitle = (subMenu?.title + '').replace(/^#\s*/, '')
-        categoryOrder[subMenuTitle] = orderIndex++
-      })
-    }
+  // 建立分類順序映射 - 使用 categoryOptions 而非 customMenu
+  const { categoryOptions } = props
+  categoryOptions?.forEach((category) => {
+    categoryOrder[category.name] = orderIndex++
   })
 
-  // 排序分組陣列：按照菜單順序排序
+  // 排序分組陣列：按照 categoryOptions 順序排序
   groupedArray?.sort((a, b) => {
-    const orderA = categoryOrder[a.category] ?? 999 // 不在菜單中的放最後
+    const orderA = categoryOrder[a.category] ?? 999 // 不在 categoryOptions 中的放最後
     const orderB = categoryOrder[b.category] ?? 999
     return orderA - orderB
   })
