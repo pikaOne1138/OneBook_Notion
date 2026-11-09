@@ -1,6 +1,9 @@
+import { getPublicPostBlockMap } from '@/lib/utils/publicPost'
 import BLOG from '@/blog.config'
 import { siteConfig } from '@/lib/config'
-import { getGlobalData, getPostBlocks } from '@/lib/db/getSiteData'
+import { fetchGlobalAllData, getPostBlocks } from '@/lib/db/SiteDataApi'
+import { formatNotionBlock } from '@/lib/db/notion/getPostBlocks'
+import { adapterNotionBlockMap } from '@/lib/utils/notion.util'
 import { DynamicLayout } from '@/themes/theme'
 
 /**
@@ -15,7 +18,7 @@ const Page = props => {
 
 export async function getStaticPaths({ locale }) {
   const from = 'page-paths'
-  const { postCount, NOTION_CONFIG } = await getGlobalData({ from, locale })
+  const { postCount, NOTION_CONFIG } = await fetchGlobalAllData({ from, locale })
   const totalPages = Math.ceil(
     postCount / siteConfig('POSTS_PER_PAGE', null, NOTION_CONFIG)
   )
@@ -30,7 +33,7 @@ export async function getStaticPaths({ locale }) {
 
 export async function getStaticProps({ params: { page }, locale }) {
   const from = `page-${page}`
-  const props = await getGlobalData({ from, locale })
+  const props = await fetchGlobalAllData({ from, locale })
   const { allPages } = props
   const POST_PREVIEW_LINES = siteConfig(
     'POST_PREVIEW_LINES',
@@ -56,7 +59,11 @@ export async function getStaticProps({ params: { page }, locale }) {
       if (post.password && post.password !== '') {
         continue
       }
-      post.blockMap = await getPostBlocks(post.id, 'slug', POST_PREVIEW_LINES)
+      const rawBlockMap = await getPostBlocks(post.id, 'slug', POST_PREVIEW_LINES)
+      post.blockMap = getPublicPostBlockMap(post, adapterNotionBlockMap(rawBlockMap), props.allPages)
+      if (post.blockMap?.block) {
+        post.blockMap.block = formatNotionBlock(post.blockMap.block)
+      }
     }
   }
 
